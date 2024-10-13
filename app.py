@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash,abort
 from models import engine, User, Product, Session
 
 app = Flask(__name__)
@@ -51,37 +51,37 @@ def dashboard():
     categories = db_session.query(Product.category).distinct().all()
     return render_template('dashboard.html', categories=categories)
 
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('add_product_form.html')
+
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
-    if 'user' not in session:
-        flash('You must be logged in to add a product.', 'warning')
-        return redirect(url_for('login'))
-
     if request.method == 'POST':
-        product_name = request.form['name']
-        product_category = request.form['category']
-        product_price = request.form['price']
-        product_description = request.form['description']
-    return render_template('add_product.html')
-        # Create a new product instance
-    new_product = Product(
-            name=product_name,
-            category=product_category,
-            price=float(product_price),
-            description=product_description
-        )
-        
-    try:
-            # Add the product to the database
-            db_session.add(new_product)
-            db_session.commit()
-            flash('Product added successfully!', 'success')
-            return redirect(url_for('dashboard'))  # Redirect to dashboard after adding the product
-    except Exception as e:
-            db_session.rollback()
-            flash(f'Error adding product: {str(e)}', 'danger')
+        product_id = request.form['product_id']
+        product_name = request.form['product_name']
+        category_id = request.form['category_id']
+        price = request.form['price']
+        description = request.form['description']
+        image_url = request.form['image_url']
 
-    return render_template('add_product.html')
+        db_session.execute('INSERT INTO products (id, name, category_id, price, description, image_url) VALUES (?, ?, ?, ?, ?, ?)',
+                     (product_id, product_name, category_id, price, description, image_url))
+        db_session.commit()
+        db_session.close()
+
+        return redirect(url_for('dashboard'))
+    elif request.method == 'GET':
+        # If someone navigates to /add_product directly, show the form
+        return render_template('add_product.html')
+    else:
+        # If any other method is used, return a 405 Method Not Allowed error
+        abort(405)
+
+
+
 
 
 
