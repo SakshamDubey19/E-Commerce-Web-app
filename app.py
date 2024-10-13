@@ -62,26 +62,26 @@ def add_product():
         product_category = request.form['category']
         product_price = request.form['price']
         product_description = request.form['description']
-
+    return render_template('add_product.html')
         # Create a new product instance
-        new_product = Product(
+    new_product = Product(
             name=product_name,
             category=product_category,
             price=float(product_price),
             description=product_description
         )
         
-        try:
+    try:
             # Add the product to the database
             db_session.add(new_product)
             db_session.commit()
             flash('Product added successfully!', 'success')
             return redirect(url_for('dashboard'))  # Redirect to dashboard after adding the product
-        except Exception as e:
+    except Exception as e:
             db_session.rollback()
             flash(f'Error adding product: {str(e)}', 'danger')
 
-    return render_template('add-product.html')
+    return render_template('add_product.html')
 
 
 
