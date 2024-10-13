@@ -11,6 +11,8 @@
     <ul>
         {% for product in products %}
             <li>{{ product.name }} - {{ product.price }} USD</li>
+            <li>{{ product.description}} - {{ product.image_url}}</li>
+
         {% endfor %}
     </ul>
 </body>

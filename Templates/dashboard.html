@@ -3,17 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>E-commerce Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #333;
+            padding: 1em;
+            color: white;
+            text-align: center;
+        } 
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .row .column {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .row .column:last-child {
+            margin-right: 0;
+        }
+        /* Enhanced product management styles */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .product-table th, .product-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .product-table th {
+            background-color: #333;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            color: white;
+            background-color: #2c3e50;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #34495e;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <a href="/logout">Logout</a>
-    
-    <h2>Categories</h2>
-    <ul>
-        {% for category in categories %}
-            <li><a href="/category/{{ category[0] }}">{{ category[0] }}</a></li>
-        {% endfor %}
-    </ul>
+
+    <div class="navbar">
+        <h1>E-commerce Dashboard</h1>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Navigation</h2>
+        <a href="#users-section">Users</a>
+        <a href="#products-section">Products</a>
+        <a href="#orders-section">Orders</a>
+        <a href="#analytics-section">Analytics</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="content">
+        <h2>Welcome, Admin</h2>
+
+        <!-- Overview Cards -->
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <h3>Total Sales</h3>
+                    <p>$10,000</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <h3>New Orders</h3>
+                    <p>150</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <h3>New Users</h3>
+                    <p>25</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Management Section -->
+        <div class="card">
+            <h3>Product Management</h3>
+            <p><a href="{{url_for('add_product')}}" class="btn">Add New Product</a></p>
+            <p><a href="/manage-products" class="btn">Manage Products</a></p>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="card">
+            <h3>Orders Overview</h3>
+            <p><a href="#view-orders" class="btn">View All Orders</a></p>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="card">
+            <h3>User Management</h3>
+            <p><a href="#view-users" class="btn">View All Users</a></p>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="card">
+            <h3>Analytics Overview</h3>
+            <p><a href="#view-analytics" class="btn">View Detailed Analytics</a></p>
+        </div>
+
+    </div>
+
 </body>
 </html>
