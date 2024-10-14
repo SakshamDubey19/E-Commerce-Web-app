@@ -1,0 +1,41 @@
+<div class="main-content">
+    <h2>Products</h2>
+    <form action="{{ url_for('add_product') }}" method="POST">
+        <label for="product_id">product_id:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="product_name">product_name:</label>
+        <input type="product" name="name" description ="" required>
+
+        <label for="price">price:</label>
+        <input type="number" price="number"  required>
+
+        <input type="hidden" name="product_id" value="some_value">
+
+        <button type="submit">Add Product</button>
+    </form>
+
+    <!-- Table to list existing users -->
+    <h3>Existing Products</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>product_id</th>
+                <th>product_name</em></th>
+                <th>price</th>
+                <th>description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in Products %}
+<tr>
+    <td>{{product.product_id}}</td>
+    <td>{{product.product_name}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.description}}</td>
+</tr>
+{% endfor %}
+
+        </tbody>
+    </table>
+</div>

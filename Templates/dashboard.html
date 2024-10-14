@@ -114,53 +114,29 @@
         <h2>Navigation</h2>
         <a href="/users-section">Users</a>
         <a href="/products-section">Products</a>
-        <a href="/orders-section">Orders</a>
-        <a href="/logout" class="logout-btn">Logout</a>
+        <a href="/logout" class="btn" colo>Logout</a>
     </div>
 
     <div class="content">
         <h2>Welcome, Admin</h2>
 
-        <!-- Overview Cards -->
-        <div class="row">
-            <div class="column">
-                <div class="card">
-                    <h3>Total Sales</h3>
-                    <p>$10,000</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <h3>New Orders</h3>
-                    <p>150</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <h3>New Users</h3>
-                    <p>25</p>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Product Management Section -->
         <div class="card">
             <h3>Product Management</h3>
             <p><a href="{{url_for('add_product')}}" class="btn">Add New Product</a></p>
-            <p><a href="/manage-products" class="btn">Manage Products</a></p>
+            <p><a href="/manage-products" class="btn">Edit Product</a></p>
+            <p><a href="/view-orders" class="btn">Delete Product</a></p>
+            <p><a href="/view-orders" class="btn">Categories</a></p>
+
+
         </div>
 
-        <!-- Orders Section -->
-        <div class="card">
-            <h3>Orders Overview</h3>
-            <p><a href="/view-orders" class="btn">View All Orders</a></p>
-        </div>
+
 
         <!-- User Management Section -->
-        <div class="card">
-            <h3>User Management</h3>
-            <p><a href="/view-users" class="btn">View All Users</a></p>
-        </div>
+
 
 
     </div>

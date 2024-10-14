@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from models import engine, User, Product, Session
 from sqlalchemy.exc import IntegrityError
 import sqlite3
+import jsonify
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Used for session management
@@ -21,6 +22,10 @@ def home():
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
 
+
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -36,11 +41,19 @@ def login():
 
     return render_template('login.html')
 
+
+
+
+
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
+
+
+
     
     
 
@@ -55,9 +68,16 @@ def dashboard():
 
 
 
+
+
+
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('add_product.html')
+
+
+
 
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
@@ -81,11 +101,16 @@ def add_product():
         abort(405)
 
 
+
+
+
+
+
 @app.route('/users-section', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
         new_user = User(
-            id=request.form['user_id'],
+            user_id=request.form['user_id'],
             Username=request.form['username'],
             password=request.form['password'],
 
@@ -106,6 +131,36 @@ def add_user():
 
     else:
         abort(405)
+
+
+
+@app.route('/products-section', methods=['GET', 'POST'])
+def addProduct():
+    if request.method == 'POST':
+        new_product = Product(
+            product_id=request.form['product_id'],
+            product_name=request.form['product_name'],
+            price=request.form['price'],
+            description = request.form['description'],
+
+        )
+        try:
+            db_session.add(new_product)
+            db_session.commit()
+            return redirect(url_for('index'))
+        except IntegrityError:
+            db_session.rollback()
+            return render_template('error.html', error='Product ID already exists'), 400
+    elif request.method == 'GET':
+        cursor = sqlite3.connect('ecommerce.db').cursor()
+
+        cursor.execute("SELECT * FROM Products")
+        rows = cursor.fetchall()
+        return render_template('products-section.html', users = rows )
+
+    else:
+        abort(405)
+
 
 
 
