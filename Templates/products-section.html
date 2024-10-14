@@ -20,8 +20,8 @@
     <table>
         <thead>
             <tr>
-                <th>product_id</th>
-                <th>product_name</em></th>
+                <th>product_id </th>
+                <th>product_name </th>
                 <th>price</th>
                 <th>description</th>
             </tr>
@@ -29,10 +29,10 @@
         <tbody>
             {% for product in Products %}
 <tr>
-    <td>{{product.product_id}}</td>
-    <td>{{product.product_name}}</td>
-    <td>{{product.price}}</td>
-    <td>{{product.description}}</td>
+    <td>{{Products.product_id}}</td>
+    <td>{{Products.product_name}}</td>
+    <td>{{Products.price}}</td>
+    <td>{{Products.description}}</td>
 </tr>
 {% endfor %}
 

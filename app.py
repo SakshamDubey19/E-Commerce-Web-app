@@ -101,6 +101,52 @@ def add_product():
         abort(405)
 
 
+@app.route('/edit_product', methods=['GET', 'POST'])
+def edit_product():
+    if request.method == 'POST':
+        new_product = Product(
+            product_id=request.form['product_id'],
+            product_name=request.form['product_name'],
+            price=request.form['price'],
+            description= request.form['description']
+
+        )
+        try:
+            db_session.add(edit_product)
+            db_session.commit()
+            return redirect(url_for(''))
+        except IntegrityError:
+            db_session.rollback()
+            return render_template('error.html', error='Product cannot be edited'), 400
+    elif request.method == 'GET':
+        return render_template('edit_product.html')
+    else:
+        abort(405)
+
+@app.route('/Delete_product', methods=['GET', 'POST'])
+def delete_product():
+    if request.method == 'POST':
+        new_product = Product(
+            product_id=request.form['product_id'],
+            product_name=request.form['product_name'],
+            price=request.form['price'],
+            description= request.form['description']
+
+        )
+        try:
+            db_session.add(delete_product)
+            db_session.commit()
+            return redirect(url_for(''))
+        except IntegrityError:
+            db_session.rollback()
+            return render_template('error.html', error='Product cannot be edited'), 400
+    elif request.method == 'GET':
+        return render_template('Delete_product.html')
+    else:
+        abort(405)
+
+
+
 
 
 
